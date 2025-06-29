@@ -1,11 +1,20 @@
 import { useState } from 'react'
 import { Link } from 'react-router-dom'
-import { Check, Star, Zap, Crown, Users, Video, Download, Upload } from 'lucide-react'
+import { Check, Star, Zap, Crown, Users, Video, Download, Upload, ChevronDown } from 'lucide-react'
 import { SUBSCRIPTION_PLANS } from '../lib/supabase'
 
 const Pricing = () => {
   const [billingCycle, setBillingCycle] = useState('monthly')
   const [selectedPlan, setSelectedPlan] = useState('STARTER')
+  const [openFaqs, setOpenFaqs] = useState([])
+
+  const toggleFaq = (index) => {
+    setOpenFaqs(prev => 
+      prev.includes(index) 
+        ? prev.filter(i => i !== index)
+        : [...prev, index]
+    )
+  }
 
   const plans = [
     {
@@ -167,7 +176,7 @@ const Pricing = () => {
                 <h3 className="text-2xl font-bold text-white mb-2">{plan.name}</h3>
                 <div className="mb-4">
                   <span className="text-4xl font-bold text-white">
-                    ${billingCycle === 'yearly' ? plan.originalPrice : plan.price}
+                    ${billingCycle === 'yearly' ? Math.round(plan.price * 10 * 0.8) : plan.price}
                   </span>
                   <span className="text-gray-400">/{billingCycle === 'yearly' ? 'year' : 'month'}</span>
                 </div>
