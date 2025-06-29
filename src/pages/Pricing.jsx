@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom'
 import { Check, Star, Zap, Crown, Users, Video, Download, Upload, ChevronDown } from 'lucide-react'
 import { SUBSCRIPTION_PLANS } from '../lib/supabase'
 
+// Pricing component with subscription plans
 const Pricing = () => {
   const [billingCycle, setBillingCycle] = useState('monthly')
   const [selectedPlan, setSelectedPlan] = useState('STARTER')
