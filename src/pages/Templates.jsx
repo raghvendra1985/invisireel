@@ -1,10 +1,15 @@
 import { useState } from 'react'
 import { Link } from 'react-router-dom'
-import { Play, Filter, Star, Users, Clock } from 'lucide-react'
+import { Play, Filter, Star, Users, Clock, Image } from 'lucide-react'
 
 const Templates = () => {
   const [selectedCategory, setSelectedCategory] = useState('all')
   const [searchQuery, setSearchQuery] = useState('')
+  const [imageErrors, setImageErrors] = useState({})
+
+  const handleImageError = (templateId) => {
+    setImageErrors(prev => ({ ...prev, [templateId]: true }))
+  }
 
   const categories = [
     { id: 'all', name: 'All Templates' },
@@ -23,7 +28,7 @@ const Templates = () => {
       name: 'Daily Motivation',
       description: 'Perfect for daily motivational content and positive affirmations',
       category: 'motivation',
-      thumbnail: 'https://via.placeholder.com/300x200/1f2937/ffffff?text=Daily+Motivation',
+      thumbnail: 'https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=300&h=200&fit=crop&crop=center',
       duration: '30-60s',
       usage: 1250,
       rating: 4.8,
@@ -34,7 +39,7 @@ const Templates = () => {
       name: 'Educational Explainer',
       description: 'Great for explaining complex topics in simple terms',
       category: 'education',
-      thumbnail: 'https://via.placeholder.com/300x200/1f2937/ffffff?text=Educational+Explainer',
+      thumbnail: 'https://images.unsplash.com/photo-1522202176988-66273c2fd55f?w=300&h=200&fit=crop&crop=center',
       duration: '60-90s',
       usage: 890,
       rating: 4.6,
@@ -45,7 +50,7 @@ const Templates = () => {
       name: 'Business Tips',
       description: 'Professional template for business advice and tips',
       category: 'business',
-      thumbnail: 'https://via.placeholder.com/300x200/1f2937/ffffff?text=Business+Tips',
+      thumbnail: 'https://images.unsplash.com/photo-1552664730-d307ca884978?w=300&h=200&fit=crop&crop=center',
       duration: '45-75s',
       usage: 650,
       rating: 4.7,
@@ -56,7 +61,7 @@ const Templates = () => {
       name: 'Fun Facts',
       description: 'Engaging template for sharing interesting facts and trivia',
       category: 'entertainment',
-      thumbnail: 'https://via.placeholder.com/300x200/1f2937/ffffff?text=Fun+Facts',
+      thumbnail: 'https://images.unsplash.com/photo-1513151233558-d860c5398176?w=300&h=200&fit=crop&crop=center',
       duration: '30-45s',
       usage: 1100,
       rating: 4.9,
@@ -67,7 +72,7 @@ const Templates = () => {
       name: 'Workout Motivation',
       description: 'Energetic template for fitness and workout content',
       category: 'fitness',
-      thumbnail: 'https://via.placeholder.com/300x200/1f2937/ffffff?text=Workout+Motivation',
+      thumbnail: 'https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?w=300&h=200&fit=crop&crop=center',
       duration: '45-60s',
       usage: 750,
       rating: 4.5,
@@ -78,7 +83,7 @@ const Templates = () => {
       name: 'Financial Tips',
       description: 'Professional template for financial advice and money tips',
       category: 'finance',
-      thumbnail: 'https://via.placeholder.com/300x200/1f2937/ffffff?text=Financial+Tips',
+      thumbnail: 'https://images.unsplash.com/photo-1554224155-6726b3ff858f?w=300&h=200&fit=crop&crop=center',
       duration: '60-90s',
       usage: 520,
       rating: 4.4,
@@ -89,7 +94,7 @@ const Templates = () => {
       name: 'Life Hacks',
       description: 'Creative template for sharing life hacks and tips',
       category: 'lifestyle',
-      thumbnail: 'https://via.placeholder.com/300x200/1f2937/ffffff?text=Life+Hacks',
+      thumbnail: 'https://images.unsplash.com/photo-1484480974693-6ca0a78fb36b?w=300&h=200&fit=crop&crop=center',
       duration: '30-60s',
       usage: 980,
       rating: 4.6,
@@ -100,11 +105,44 @@ const Templates = () => {
       name: 'Success Stories',
       description: 'Inspirational template for success stories and achievements',
       category: 'motivation',
-      thumbnail: 'https://via.placeholder.com/300x200/1f2937/ffffff?text=Success+Stories',
+      thumbnail: 'https://images.unsplash.com/photo-1552664730-d307ca884978?w=300&h=200&fit=crop&crop=center',
       duration: '60-120s',
       usage: 420,
       rating: 4.7,
       tags: ['motivation', 'success', 'inspiration']
+    },
+    {
+      id: 'education-2',
+      name: 'Science Explainer',
+      description: 'Perfect for explaining scientific concepts and discoveries',
+      category: 'education',
+      thumbnail: 'https://images.unsplash.com/photo-1532094349884-543bc11b234d?w=300&h=200&fit=crop&crop=center',
+      duration: '90-120s',
+      usage: 320,
+      rating: 4.5,
+      tags: ['education', 'science', 'explainer']
+    },
+    {
+      id: 'business-2',
+      name: 'Startup Tips',
+      description: 'Valuable insights for entrepreneurs and startup founders',
+      category: 'business',
+      thumbnail: 'https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=300&h=200&fit=crop&crop=center',
+      duration: '45-90s',
+      usage: 280,
+      rating: 4.6,
+      tags: ['business', 'startup', 'entrepreneur']
+    },
+    {
+      id: 'entertainment-2',
+      name: 'Movie Reviews',
+      description: 'Engaging template for movie and entertainment reviews',
+      category: 'entertainment',
+      thumbnail: 'https://images.unsplash.com/photo-1489599835382-957593cb2371?w=300&h=200&fit=crop&crop=center',
+      duration: '60-90s',
+      usage: 650,
+      rating: 4.8,
+      tags: ['entertainment', 'movies', 'reviews']
     }
   ]
 
@@ -166,11 +204,22 @@ const Templates = () => {
             <div key={template.id} className="card hover:scale-105 transition-transform duration-200">
               {/* Thumbnail */}
               <div className="relative mb-4">
-                <img
-                  src={template.thumbnail}
-                  alt={template.name}
-                  className="w-full h-48 object-cover rounded-lg"
-                />
+                {imageErrors[template.id] ? (
+                  <div className="w-full h-48 bg-gradient-to-br from-gray-700 to-gray-800 rounded-lg flex items-center justify-center">
+                    <div className="text-center">
+                      <Image className="w-12 h-12 text-gray-400 mx-auto mb-2" />
+                      <p className="text-gray-400 text-sm">{template.name}</p>
+                    </div>
+                  </div>
+                ) : (
+                  <img
+                    src={template.thumbnail}
+                    alt={template.name}
+                    className="w-full h-48 object-cover rounded-lg"
+                    onError={() => handleImageError(template.id)}
+                    loading="lazy"
+                  />
+                )}
                 <button className="absolute inset-0 flex items-center justify-center bg-black/50 opacity-0 hover:opacity-100 transition-opacity rounded-lg">
                   <Play className="w-12 h-12 text-white" />
                 </button>
