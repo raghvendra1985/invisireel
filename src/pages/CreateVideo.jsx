@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
-import { Play, Download, Upload, Settings, Mic, Music, Video, Loader2, CheckCircle } from 'lucide-react'
+import { Play, Download, Upload, Settings, Mic, Music, Video, Loader2, CheckCircle, ArrowRight, ArrowLeft, Info } from 'lucide-react'
 import { supabase, TABLES, VIDEO_STATUS } from '../lib/supabase'
 import { elevenLabsAPI, pexelsAPI } from '../lib/api'
 import LoadingSpinner from '../components/LoadingSpinner'
@@ -40,8 +40,14 @@ const CreateVideo = ({ user }) => {
 
   const fetchVoices = async () => {
     try {
-      const voicesData = await elevenLabsAPI.getVoices()
-      setVoices(voicesData.slice(0, 10)) // Limit to 10 voices
+      // Mock voices for now since we don't have ElevenLabs API configured
+      const mockVoices = [
+        { voice_id: 'voice1', name: 'Sarah', description: 'Clear and professional female voice', language: 'English', accent: 'American', labels: { accent: 'American' } },
+        { voice_id: 'voice2', name: 'Mike', description: 'Deep and authoritative male voice', language: 'English', accent: 'British', labels: { accent: 'British' } },
+        { voice_id: 'voice3', name: 'Emma', description: 'Friendly and approachable female voice', language: 'English', accent: 'Australian', labels: { accent: 'Australian' } },
+        { voice_id: 'voice4', name: 'David', description: 'Warm and engaging male voice', language: 'English', accent: 'Canadian', labels: { accent: 'Canadian' } }
+      ]
+      setVoices(mockVoices)
     } catch (error) {
       console.error('Error fetching voices:', error)
     }
@@ -110,7 +116,7 @@ const CreateVideo = ({ user }) => {
         })
         setVideoStatus('Video generated successfully!')
         setGenerating(false)
-        setStep(3)
+        setStep(4)
       }, 5000) // Simulate 5 second generation time
 
     } catch (error) {
@@ -151,7 +157,7 @@ const CreateVideo = ({ user }) => {
         {/* Progress Steps */}
         <div className="mb-8">
           <div className="flex items-center justify-between">
-            {[1, 2, 3].map((stepNumber) => (
+            {[1, 2, 3, 4].map((stepNumber) => (
               <div key={stepNumber} className="flex items-center">
                 <div className="flex items-center">
                   <div
@@ -163,7 +169,7 @@ const CreateVideo = ({ user }) => {
                   </div>
                   <span className="ml-2 text-sm font-medium text-white">{stepNumber}</span>
                 </div>
-                {stepNumber < 3 && (
+                {stepNumber < 4 && (
                   <div
                     className={`w-12 h-0.5 mx-4 ${
                       step > stepNumber ? 'bg-yellow-500' : 'bg-gray-700'
@@ -176,7 +182,7 @@ const CreateVideo = ({ user }) => {
         </div>
 
         {/* Step Content */}
-        <div className="card">
+        <div className="bg-gray-800 rounded-lg p-6">
           {step === 1 && (
             <div className="space-y-6">
               <div>
@@ -187,7 +193,7 @@ const CreateVideo = ({ user }) => {
                   type="text"
                   value={title}
                   onChange={(e) => setTitle(e.target.value)}
-                  className="input-field w-full"
+                  className="w-full px-3 py-2 bg-gray-700 border border-gray-600 rounded-md text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-yellow-500 focus:border-transparent"
                   placeholder="Enter your video title"
                 />
               </div>
@@ -199,7 +205,7 @@ const CreateVideo = ({ user }) => {
                 <textarea
                   value={script}
                   onChange={(e) => setScript(e.target.value)}
-                  className="input-field w-full h-32 resize-none"
+                  className="w-full px-3 py-2 bg-gray-700 border border-gray-600 rounded-md text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-yellow-500 focus:border-transparent h-32 resize-none"
                   placeholder="Write your script here... (Minimum 50 characters)"
                 />
                 <div className="flex justify-between items-center mt-2">
@@ -221,7 +227,7 @@ const CreateVideo = ({ user }) => {
                 <select
                   value={selectedTemplate}
                   onChange={(e) => setSelectedTemplate(e.target.value)}
-                  className="input-field w-full"
+                  className="w-full px-3 py-2 bg-gray-700 border border-gray-600 rounded-md text-white focus:outline-none focus:ring-2 focus:ring-yellow-500 focus:border-transparent"
                 >
                   <option value="">Select a category</option>
                   <option value="educational">Educational</option>
@@ -236,7 +242,7 @@ const CreateVideo = ({ user }) => {
                 <button
                   onClick={() => setStep(2)}
                   disabled={script.length < 50 || !selectedTemplate}
-                  className="btn-primary disabled:opacity-50 disabled:cursor-not-allowed"
+                  className="px-6 py-2 bg-yellow-500 text-gray-900 font-semibold rounded-md hover:bg-yellow-400 disabled:opacity-50 disabled:cursor-not-allowed flex items-center"
                 >
                   Next: Choose Voice
                   <ArrowRight className="w-4 h-4 ml-2" />
@@ -281,14 +287,14 @@ const CreateVideo = ({ user }) => {
               </div>
 
               <div className="flex justify-between">
-                <button onClick={() => setStep(1)} className="btn-secondary">
+                <button onClick={() => setStep(1)} className="px-6 py-2 bg-gray-600 text-white font-semibold rounded-md hover:bg-gray-500 flex items-center">
                   <ArrowLeft className="w-4 h-4 mr-2" />
                   Back
                 </button>
                 <button
                   onClick={() => setStep(3)}
                   disabled={!selectedVoice}
-                  className="btn-primary disabled:opacity-50 disabled:cursor-not-allowed"
+                  className="px-6 py-2 bg-yellow-500 text-gray-900 font-semibold rounded-md hover:bg-yellow-400 disabled:opacity-50 disabled:cursor-not-allowed flex items-center"
                 >
                   Next: Choose Style
                   <ArrowRight className="w-4 h-4 ml-2" />
@@ -331,7 +337,7 @@ const CreateVideo = ({ user }) => {
                 <select
                   value={backgroundMusic}
                   onChange={(e) => setBackgroundMusic(e.target.value)}
-                  className="input-field w-full"
+                  className="w-full px-3 py-2 bg-gray-700 border border-gray-600 rounded-md text-white focus:outline-none focus:ring-2 focus:ring-yellow-500 focus:border-transparent"
                 >
                   <option value="">No background music</option>
                   <option value="upbeat">Upbeat & Energetic</option>
@@ -342,18 +348,18 @@ const CreateVideo = ({ user }) => {
               </div>
 
               <div className="flex justify-between">
-                <button onClick={() => setStep(2)} className="btn-secondary">
+                <button onClick={() => setStep(2)} className="px-6 py-2 bg-gray-600 text-white font-semibold rounded-md hover:bg-gray-500 flex items-center">
                   <ArrowLeft className="w-4 h-4 mr-2" />
                   Back
                 </button>
                 <button
                   onClick={handleGenerate}
                   disabled={!selectedVoice || !selectedTemplate || generating}
-                  className="btn-primary disabled:opacity-50 disabled:cursor-not-allowed"
+                  className="px-6 py-2 bg-yellow-500 text-gray-900 font-semibold rounded-md hover:bg-yellow-400 disabled:opacity-50 disabled:cursor-not-allowed flex items-center"
                 >
                   {generating ? (
                     <>
-                      <LoadingSpinner />
+                      <Loader2 className="w-4 h-4 mr-2 animate-spin" />
                       Generating Video...
                     </>
                   ) : (
@@ -416,14 +422,14 @@ const CreateVideo = ({ user }) => {
               <div className="flex flex-col sm:flex-row gap-4">
                 <button
                   onClick={handleDownload}
-                  className="btn-primary flex items-center justify-center"
+                  className="px-6 py-2 bg-yellow-500 text-gray-900 font-semibold rounded-md hover:bg-yellow-400 flex items-center justify-center"
                 >
                   <Download className="w-5 h-5 mr-2" />
                   Download Video
                 </button>
                 <button
                   onClick={handleUploadToYouTube}
-                  className="btn-secondary flex items-center justify-center"
+                  className="px-6 py-2 bg-gray-600 text-white font-semibold rounded-md hover:bg-gray-500 flex items-center justify-center"
                 >
                   <Upload className="w-5 h-5 mr-2" />
                   Upload to YouTube
@@ -442,7 +448,7 @@ const CreateVideo = ({ user }) => {
                     setGeneratedVideo(null)
                     setVideoStatus('')
                   }}
-                  className="text-primary-500 hover:text-primary-400 font-medium"
+                  className="text-yellow-500 hover:text-yellow-400 font-medium"
                 >
                   Create Another Video
                 </button>
