@@ -140,117 +140,138 @@ const CreateVideo = ({ user }) => {
   }
 
   return (
-    <div className="min-h-screen bg-dark-900">
-      <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+    <div className="min-h-screen bg-gray-900">
+      <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
         {/* Header */}
-        <div className="mb-8">
-          <h1 className="text-3xl font-bold text-white mb-2">Create New Video</h1>
-          <p className="text-dark-300">Transform your script into an engaging faceless video</p>
+        <div className="text-center mb-8">
+          <h1 className="text-3xl font-bold text-white mb-2">Create Your Video</h1>
+          <p className="text-gray-300">Transform your script into a stunning faceless video</p>
         </div>
 
         {/* Progress Steps */}
-        <div className="flex items-center justify-center mb-8">
-          <div className="flex items-center space-x-4">
+        <div className="mb-8">
+          <div className="flex items-center justify-between">
             {[1, 2, 3].map((stepNumber) => (
               <div key={stepNumber} className="flex items-center">
-                <div className={`w-10 h-10 rounded-full flex items-center justify-center ${
-                  step >= stepNumber ? 'bg-primary-500 text-dark-900' : 'bg-dark-700 text-dark-300'
-                }`}>
-                  {step > stepNumber ? <CheckCircle className="w-5 h-5" /> : stepNumber}
+                <div className="flex items-center">
+                  <div
+                    className={`w-8 h-8 rounded-full flex items-center justify-center text-sm font-semibold ${
+                      step >= stepNumber ? 'bg-yellow-500 text-gray-900' : 'bg-gray-700 text-gray-300'
+                    }`}
+                  >
+                    {stepNumber}
+                  </div>
+                  <span className="ml-2 text-sm font-medium text-white">{stepNumber}</span>
                 </div>
                 {stepNumber < 3 && (
-                  <div className={`w-16 h-1 mx-2 ${
-                    step > stepNumber ? 'bg-primary-500' : 'bg-dark-700'
-                  }`}></div>
+                  <div
+                    className={`w-12 h-0.5 mx-4 ${
+                      step > stepNumber ? 'bg-yellow-500' : 'bg-gray-700'
+                    }`}
+                  />
                 )}
               </div>
             ))}
           </div>
         </div>
 
-        {/* Step 1: Script Input */}
-        {step === 1 && (
-          <div className="card">
-            <div className="mb-6">
-              <h2 className="text-xl font-semibold text-white mb-2">Step 1: Write Your Script</h2>
-              <p className="text-dark-300">Enter your script or content idea</p>
-            </div>
-
+        {/* Step Content */}
+        <div className="card">
+          {step === 1 && (
             <div className="space-y-6">
               <div>
-                <label htmlFor="title" className="block text-sm font-medium text-white mb-2">
-                  Video Title (Optional)
+                <label className="block text-sm font-medium text-white mb-2">
+                  Video Title
                 </label>
                 <input
-                  id="title"
                   type="text"
                   value={title}
                   onChange={(e) => setTitle(e.target.value)}
                   className="input-field w-full"
-                  placeholder="Enter video title"
+                  placeholder="Enter your video title"
                 />
               </div>
 
               <div>
-                <label htmlFor="script" className="block text-sm font-medium text-white mb-2">
-                  Script *
+                <label className="block text-sm font-medium text-white mb-2">
+                  Script Content
                 </label>
                 <textarea
-                  id="script"
                   value={script}
                   onChange={(e) => setScript(e.target.value)}
                   className="input-field w-full h-32 resize-none"
                   placeholder="Write your script here... (Minimum 50 characters)"
-                  required
                 />
-                <p className="text-dark-400 text-sm mt-1">
-                  {script.length} characters
-                </p>
+                <div className="flex justify-between items-center mt-2">
+                  <span className="text-sm text-gray-400">
+                    {script.length} characters
+                  </span>
+                  {script.length < 50 && (
+                    <span className="text-sm text-red-400">
+                      Minimum 50 characters required
+                    </span>
+                  )}
+                </div>
               </div>
 
-              <button
-                onClick={() => setStep(2)}
-                disabled={script.length < 50}
-                className="btn-primary w-full"
-              >
-                Continue to Voice & Style
-              </button>
-            </div>
-          </div>
-        )}
-
-        {/* Step 2: Voice & Style Selection */}
-        {step === 2 && (
-          <div className="card">
-            <div className="mb-6">
-              <h2 className="text-xl font-semibold text-white mb-2">Step 2: Choose Voice & Style</h2>
-              <p className="text-dark-300">Select your preferred voice and video template</p>
-            </div>
-
-            <div className="space-y-8">
-              {/* Voice Selection */}
               <div>
-                <h3 className="text-lg font-medium text-white mb-4 flex items-center">
-                  <Mic className="w-5 h-5 mr-2" />
-                  Choose Voice
-                </h3>
+                <label className="block text-sm font-medium text-white mb-2">
+                  Video Category
+                </label>
+                <select
+                  value={selectedTemplate}
+                  onChange={(e) => setSelectedTemplate(e.target.value)}
+                  className="input-field w-full"
+                >
+                  <option value="">Select a category</option>
+                  <option value="educational">Educational</option>
+                  <option value="entertainment">Entertainment</option>
+                  <option value="business">Business</option>
+                  <option value="lifestyle">Lifestyle</option>
+                  <option value="technology">Technology</option>
+                </select>
+              </div>
+
+              <div className="flex justify-end">
+                <button
+                  onClick={() => setStep(2)}
+                  disabled={script.length < 50 || !selectedTemplate}
+                  className="btn-primary disabled:opacity-50 disabled:cursor-not-allowed"
+                >
+                  Next: Choose Voice
+                  <ArrowRight className="w-4 h-4 ml-2" />
+                </button>
+              </div>
+            </div>
+          )}
+
+          {step === 2 && (
+            <div className="space-y-6">
+              <div>
+                <label className="block text-sm font-medium text-white mb-4">
+                  Select AI Voice
+                </label>
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                   {voices.map((voice) => (
                     <div
                       key={voice.voice_id}
                       onClick={() => setSelectedVoice(voice.voice_id)}
-                      className={`p-4 rounded-lg border-2 cursor-pointer transition-all ${
+                      className={`p-4 rounded-lg border-2 cursor-pointer transition-all duration-200 ${
                         selectedVoice === voice.voice_id
-                          ? 'border-primary-500 bg-primary-500/10'
-                          : 'border-dark-600 hover:border-dark-500'
+                          ? 'border-yellow-500 bg-yellow-500/10'
+                          : 'border-gray-600 hover:border-gray-500'
                       }`}
                     >
+                      <div className="flex items-center justify-between mb-2">
+                        <h3 className="font-semibold text-white">{voice.name}</h3>
+                        <span className="text-sm text-gray-400">{voice.labels?.accent || 'Neutral'}</span>
+                      </div>
+                      <p className="text-sm text-gray-300 mb-3">{voice.description}</p>
                       <div className="flex items-center justify-between">
-                        <div>
-                          <p className="font-medium text-white">{voice.name}</p>
-                          <p className="text-dark-400 text-sm">{voice.labels?.accent || 'Neutral'}</p>
-                        </div>
-                        <button className="text-primary-500 hover:text-primary-400">
+                        <span className="text-xs text-gray-400">
+                          {voice.language} • {voice.accent}
+                        </span>
+                        <button className="text-yellow-500 hover:text-yellow-400">
                           <Play className="w-4 h-4" />
                         </button>
                       </div>
@@ -259,102 +280,139 @@ const CreateVideo = ({ user }) => {
                 </div>
               </div>
 
-              {/* Template Selection */}
+              <div className="flex justify-between">
+                <button onClick={() => setStep(1)} className="btn-secondary">
+                  <ArrowLeft className="w-4 h-4 mr-2" />
+                  Back
+                </button>
+                <button
+                  onClick={() => setStep(3)}
+                  disabled={!selectedVoice}
+                  className="btn-primary disabled:opacity-50 disabled:cursor-not-allowed"
+                >
+                  Next: Choose Style
+                  <ArrowRight className="w-4 h-4 ml-2" />
+                </button>
+              </div>
+            </div>
+          )}
+
+          {step === 3 && (
+            <div className="space-y-6">
               <div>
-                <h3 className="text-lg font-medium text-white mb-4 flex items-center">
-                  <Video className="w-5 h-5 mr-2" />
-                  Choose Template
-                </h3>
-                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+                <label className="block text-sm font-medium text-white mb-4">
+                  Select Video Style
+                </label>
+                <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
                   {templates.map((template) => (
                     <div
                       key={template.id}
                       onClick={() => setSelectedTemplate(template.id)}
-                      className={`p-4 rounded-lg border-2 cursor-pointer transition-all ${
+                      className={`p-4 rounded-lg border-2 cursor-pointer transition-all duration-200 ${
                         selectedTemplate === template.id
-                          ? 'border-primary-500 bg-primary-500/10'
-                          : 'border-dark-600 hover:border-dark-500'
+                          ? 'border-yellow-500 bg-yellow-500/10'
+                          : 'border-gray-600 hover:border-gray-500'
                       }`}
                     >
-                      <p className="font-medium text-white">{template.name}</p>
-                      <p className="text-dark-400 text-sm">{template.description}</p>
-                      <span className="inline-block mt-2 px-2 py-1 bg-dark-700 rounded text-xs text-dark-300">
-                        {template.category}
-                      </span>
+                      <div className="aspect-video bg-gray-700 rounded-lg mb-3 flex items-center justify-center">
+                        <Play className="w-8 h-8 text-yellow-500" />
+                      </div>
+                      <h3 className="font-semibold text-white mb-1">{template.name}</h3>
+                      <p className="text-sm text-gray-300">{template.description}</p>
                     </div>
                   ))}
                 </div>
               </div>
 
-              {/* Background Music */}
               <div>
-                <h3 className="text-lg font-medium text-white mb-4 flex items-center">
-                  <Music className="w-5 h-5 mr-2" />
-                  Background Music (Optional)
-                </h3>
-                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-                  {musicOptions.map((music) => (
-                    <div
-                      key={music.id}
-                      onClick={() => setBackgroundMusic(music.id)}
-                      className={`p-4 rounded-lg border-2 cursor-pointer transition-all ${
-                        backgroundMusic === music.id
-                          ? 'border-primary-500 bg-primary-500/10'
-                          : 'border-dark-600 hover:border-dark-500'
-                      }`}
-                    >
-                      <p className="font-medium text-white">{music.name}</p>
-                      <p className="text-dark-400 text-sm">{music.description}</p>
-                    </div>
-                  ))}
-                </div>
+                <label className="block text-sm font-medium text-white mb-2">
+                  Background Music
+                </label>
+                <select
+                  value={backgroundMusic}
+                  onChange={(e) => setBackgroundMusic(e.target.value)}
+                  className="input-field w-full"
+                >
+                  <option value="">No background music</option>
+                  <option value="upbeat">Upbeat & Energetic</option>
+                  <option value="calm">Calm & Relaxing</option>
+                  <option value="dramatic">Dramatic & Intense</option>
+                  <option value="fun">Fun & Playful</option>
+                </select>
               </div>
 
-              <div className="flex space-x-4">
-                <button
-                  onClick={() => setStep(1)}
-                  className="btn-secondary flex-1"
-                >
+              <div className="flex justify-between">
+                <button onClick={() => setStep(2)} className="btn-secondary">
+                  <ArrowLeft className="w-4 h-4 mr-2" />
                   Back
                 </button>
                 <button
                   onClick={handleGenerate}
                   disabled={!selectedVoice || !selectedTemplate || generating}
-                  className="btn-primary flex-1 flex items-center justify-center"
+                  className="btn-primary disabled:opacity-50 disabled:cursor-not-allowed"
                 >
                   {generating ? (
                     <>
-                      <Loader2 className="w-5 h-5 mr-2 animate-spin" />
-                      Generating...
+                      <LoadingSpinner />
+                      Generating Video...
                     </>
                   ) : (
-                    'Generate Video'
+                    <>
+                      Generate Video
+                      <ArrowRight className="w-4 h-4 ml-2" />
+                    </>
                   )}
                 </button>
               </div>
             </div>
-          </div>
-        )}
+          )}
 
-        {/* Step 3: Video Preview & Download */}
-        {step === 3 && generatedVideo && (
-          <div className="card">
-            <div className="mb-6">
-              <h2 className="text-xl font-semibold text-white mb-2">Step 3: Your Video is Ready!</h2>
-              <p className="text-dark-300">{videoStatus}</p>
-            </div>
-
+          {step === 4 && generatedVideo && (
             <div className="space-y-6">
-              {/* Video Preview */}
-              <div className="aspect-video bg-dark-700 rounded-lg flex items-center justify-center border border-dark-600">
-                <div className="text-center">
-                  <Play className="w-16 h-16 text-primary-500 mx-auto mb-4" />
-                  <p className="text-dark-300">Video preview will be displayed here</p>
-                  <p className="text-dark-400 text-sm mt-2">{generatedVideo.title}</p>
+              <div>
+                <h3 className="text-lg font-semibold text-white mb-4">Review Your Video</h3>
+                <div className="space-y-4">
+                  <div className="flex justify-between items-center p-3 bg-gray-700 rounded-lg">
+                    <span className="text-gray-300">Title:</span>
+                    <span className="text-white font-medium">{title}</span>
+                  </div>
+                  <div className="flex justify-between items-center p-3 bg-gray-700 rounded-lg">
+                    <span className="text-gray-300">Category:</span>
+                    <span className="text-white font-medium capitalize">{selectedTemplate}</span>
+                  </div>
+                  <div className="flex justify-between items-center p-3 bg-gray-700 rounded-lg">
+                    <span className="text-gray-300">Voice:</span>
+                    <span className="text-white font-medium">
+                      {voices.find(v => v.voice_id === selectedVoice)?.name}
+                    </span>
+                  </div>
+                  <div className="flex justify-between items-center p-3 bg-gray-700 rounded-lg">
+                    <span className="text-gray-300">Style:</span>
+                    <span className="text-white font-medium">
+                      {templates.find(t => t.id === selectedTemplate)?.name}
+                    </span>
+                  </div>
+                  {backgroundMusic && (
+                    <div className="flex justify-between items-center p-3 bg-gray-700 rounded-lg">
+                      <span className="text-gray-300">Music:</span>
+                      <span className="text-white font-medium capitalize">{backgroundMusic}</span>
+                    </div>
+                  )}
                 </div>
               </div>
 
-              {/* Action Buttons */}
+              <div className="bg-yellow-500/10 border border-yellow-500/20 rounded-lg p-4">
+                <div className="flex items-start">
+                  <Info className="w-5 h-5 text-yellow-500 mt-0.5 mr-3 flex-shrink-0" />
+                  <div>
+                    <h4 className="font-medium text-white mb-1">Estimated Processing Time</h4>
+                    <p className="text-sm text-gray-300">
+                      Your video will be ready in approximately 2-3 minutes. You'll receive a notification when it's complete.
+                    </p>
+                  </div>
+                </div>
+              </div>
+
               <div className="flex flex-col sm:flex-row gap-4">
                 <button
                   onClick={handleDownload}
@@ -390,8 +448,8 @@ const CreateVideo = ({ user }) => {
                 </button>
               </div>
             </div>
-          </div>
-        )}
+          )}
+        </div>
       </div>
     </div>
   )

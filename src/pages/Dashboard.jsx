@@ -87,26 +87,26 @@ const Dashboard = ({ user }) => {
       case VIDEO_STATUS.FAILED:
         return 'text-red-400 bg-red-400/10'
       default:
-        return 'text-dark-400 bg-dark-400/10'
+        return 'text-gray-400 bg-gray-400/10'
     }
   }
 
   if (loading) {
     return (
-      <div className="min-h-screen bg-dark-900 flex items-center justify-center">
+      <div className="min-h-screen bg-gray-900 flex items-center justify-center">
         <LoadingSpinner />
       </div>
     )
   }
 
   return (
-    <div className="min-h-screen bg-dark-900">
+    <div className="min-h-screen bg-gray-900">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
         {/* Header */}
         <div className="flex justify-between items-center mb-8">
           <div>
             <h1 className="text-3xl font-bold text-white">Dashboard</h1>
-            <p className="text-dark-300">Welcome back, {user?.user_metadata?.name || 'Creator'}!</p>
+            <p className="text-gray-300">Welcome back, {user?.user_metadata?.name || 'Creator'}!</p>
           </div>
           <Link to="/create" className="btn-primary flex items-center">
             <Plus className="w-5 h-5 mr-2" />
@@ -118,11 +118,11 @@ const Dashboard = ({ user }) => {
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
           <div className="card">
             <div className="flex items-center">
-              <div className="w-12 h-12 bg-primary-500/10 rounded-lg flex items-center justify-center mr-4">
-                <Video className="w-6 h-6 text-primary-500" />
+              <div className="w-12 h-12 bg-yellow-500/10 rounded-lg flex items-center justify-center mr-4">
+                <Video className="w-6 h-6 text-yellow-500" />
               </div>
               <div>
-                <p className="text-dark-300 text-sm">Total Videos</p>
+                <p className="text-gray-400 text-sm">Total Videos</p>
                 <p className="text-2xl font-bold text-white">{stats.totalVideos}</p>
               </div>
             </div>
@@ -134,7 +134,7 @@ const Dashboard = ({ user }) => {
                 <Play className="w-6 h-6 text-green-500" />
               </div>
               <div>
-                <p className="text-dark-300 text-sm">Completed</p>
+                <p className="text-gray-400 text-sm">Completed</p>
                 <p className="text-2xl font-bold text-white">{stats.completedVideos}</p>
               </div>
             </div>
@@ -146,7 +146,7 @@ const Dashboard = ({ user }) => {
                 <TrendingUp className="w-6 h-6 text-yellow-500" />
               </div>
               <div>
-                <p className="text-dark-300 text-sm">Processing</p>
+                <p className="text-gray-400 text-sm">Processing</p>
                 <p className="text-2xl font-bold text-white">{stats.processingVideos}</p>
               </div>
             </div>
@@ -158,7 +158,7 @@ const Dashboard = ({ user }) => {
                 <Eye className="w-6 h-6 text-blue-500" />
               </div>
               <div>
-                <p className="text-dark-300 text-sm">Total Views</p>
+                <p className="text-gray-400 text-sm">Total Views</p>
                 <p className="text-2xl font-bold text-white">{stats.totalViews.toLocaleString()}</p>
               </div>
             </div>
@@ -176,9 +176,9 @@ const Dashboard = ({ user }) => {
 
           {videos.length === 0 ? (
             <div className="text-center py-12">
-              <Video className="w-16 h-16 text-dark-600 mx-auto mb-4" />
+              <Video className="w-16 h-16 text-gray-600 mx-auto mb-4" />
               <h3 className="text-lg font-medium text-white mb-2">No videos yet</h3>
-              <p className="text-dark-300 mb-6">Create your first video to get started</p>
+              <p className="text-gray-300 mb-6">Create your first video to get started</p>
               <Link to="/create" className="btn-primary">
                 Create Your First Video
               </Link>
@@ -187,21 +187,21 @@ const Dashboard = ({ user }) => {
             <div className="overflow-x-auto">
               <table className="w-full">
                 <thead>
-                  <tr className="border-b border-dark-700">
-                    <th className="text-left py-3 px-4 text-dark-300 font-medium">Title</th>
-                    <th className="text-left py-3 px-4 text-dark-300 font-medium">Status</th>
-                    <th className="text-left py-3 px-4 text-dark-300 font-medium">Created</th>
-                    <th className="text-left py-3 px-4 text-dark-300 font-medium">Views</th>
-                    <th className="text-right py-3 px-4 text-dark-300 font-medium">Actions</th>
+                  <tr className="border-b border-gray-700">
+                    <th className="text-left py-3 px-4 text-gray-300 font-medium">Title</th>
+                    <th className="text-left py-3 px-4 text-gray-300 font-medium">Status</th>
+                    <th className="text-left py-3 px-4 text-gray-300 font-medium">Created</th>
+                    <th className="text-left py-3 px-4 text-gray-300 font-medium">Views</th>
+                    <th className="text-right py-3 px-4 text-gray-300 font-medium">Actions</th>
                   </tr>
                 </thead>
                 <tbody>
                   {videos.map((video) => (
-                    <tr key={video.id} className="border-b border-dark-700/50 hover:bg-dark-700/20">
+                    <tr key={video.id} className="border-b border-gray-700/50 hover:bg-gray-700/20">
                       <td className="py-4 px-4">
                         <div>
                           <p className="text-white font-medium">{video.title}</p>
-                          <p className="text-dark-400 text-sm">{video.description}</p>
+                          <p className="text-sm text-gray-400">{video.description}</p>
                         </div>
                       </td>
                       <td className="py-4 px-4">
@@ -209,10 +209,10 @@ const Dashboard = ({ user }) => {
                           {video.status}
                         </span>
                       </td>
-                      <td className="py-4 px-4 text-dark-300">
+                      <td className="py-4 px-4 text-gray-300">
                         {new Date(video.created_at).toLocaleDateString()}
                       </td>
-                      <td className="py-4 px-4 text-dark-300">
+                      <td className="py-4 px-4 text-gray-300">
                         {video.views || 0}
                       </td>
                       <td className="py-4 px-4 text-right">

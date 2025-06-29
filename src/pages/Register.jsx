@@ -49,7 +49,7 @@ const Register = () => {
   }
 
   return (
-    <div className="min-h-screen bg-dark-900 flex items-center justify-center px-4">
+    <div className="min-h-screen bg-gray-900 flex items-center justify-center px-4">
       <div className="max-w-md w-full">
         <div className="text-center mb-8">
           <Link to="/" className="inline-flex items-center space-x-2 mb-6">

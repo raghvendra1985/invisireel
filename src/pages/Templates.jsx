@@ -117,13 +117,13 @@ const Templates = () => {
   })
 
   return (
-    <div className="min-h-screen bg-dark-900">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+    <div className="min-h-screen bg-gray-900">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
         {/* Header */}
         <div className="text-center mb-12">
           <h1 className="text-4xl font-bold text-white mb-4">Video Templates</h1>
-          <p className="text-xl text-dark-300 max-w-3xl mx-auto">
-            Choose from our collection of professionally designed templates to create engaging faceless videos
+          <p className="text-gray-300 text-lg max-w-2xl mx-auto">
+            Choose from our collection of professionally designed templates to create stunning faceless videos
           </p>
         </div>
 
@@ -139,7 +139,7 @@ const Templates = () => {
                   placeholder="Search templates..."
                   className="input-field w-full pl-10"
                 />
-                <Filter className="absolute left-3 top-1/2 transform -translate-y-1/2 w-5 h-5 text-dark-400" />
+                <Filter className="absolute left-3 top-1/2 transform -translate-y-1/2 w-5 h-5 text-gray-400" />
               </div>
             </div>
             <div className="flex flex-wrap gap-2">
@@ -149,8 +149,8 @@ const Templates = () => {
                   onClick={() => setSelectedCategory(category.id)}
                   className={`px-4 py-2 rounded-lg text-sm font-medium transition-colors ${
                     selectedCategory === category.id
-                      ? 'bg-primary-500 text-dark-900'
-                      : 'bg-dark-700 text-dark-300 hover:bg-dark-600'
+                      ? 'bg-yellow-500 text-gray-900'
+                      : 'bg-gray-700 text-gray-300 hover:bg-gray-600'
                   }`}
                 >
                   {category.name}
@@ -180,11 +180,11 @@ const Templates = () => {
               <div className="space-y-3">
                 <div>
                   <h3 className="text-lg font-semibold text-white mb-1">{template.name}</h3>
-                  <p className="text-dark-300 text-sm">{template.description}</p>
+                  <p className="text-gray-300 text-sm">{template.description}</p>
                 </div>
 
                 {/* Stats */}
-                <div className="flex items-center justify-between text-sm text-dark-400">
+                <div className="flex items-center justify-between text-sm text-gray-400">
                   <div className="flex items-center">
                     <Clock className="w-4 h-4 mr-1" />
                     {template.duration}
@@ -194,7 +194,7 @@ const Templates = () => {
                     {template.usage.toLocaleString()}
                   </div>
                   <div className="flex items-center">
-                    <Star className="w-4 h-4 mr-1 text-primary-500 fill-current" />
+                    <Star className="w-4 h-4 mr-1 text-yellow-500 fill-current" />
                     {template.rating}
                   </div>
                 </div>
@@ -204,7 +204,7 @@ const Templates = () => {
                   {template.tags.slice(0, 2).map((tag) => (
                     <span
                       key={tag}
-                      className="px-2 py-1 bg-dark-700 rounded text-xs text-dark-300"
+                      className="px-2 py-1 bg-gray-700 rounded text-xs text-gray-300"
                     >
                       {tag}
                     </span>
@@ -226,11 +226,11 @@ const Templates = () => {
         {/* Empty State */}
         {filteredTemplates.length === 0 && (
           <div className="text-center py-12">
-            <div className="w-16 h-16 bg-dark-700 rounded-full flex items-center justify-center mx-auto mb-4">
-              <Filter className="w-8 h-8 text-dark-400" />
+            <div className="w-16 h-16 bg-gray-700 rounded-full flex items-center justify-center mx-auto mb-4">
+              <Filter className="w-8 h-8 text-gray-400" />
             </div>
             <h3 className="text-lg font-medium text-white mb-2">No templates found</h3>
-            <p className="text-dark-300 mb-6">
+            <p className="text-gray-300 mb-6">
               Try adjusting your search or filter criteria
             </p>
             <button

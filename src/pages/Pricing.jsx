@@ -107,39 +107,39 @@ const Pricing = () => {
   ]
 
   return (
-    <div className="min-h-screen bg-dark-900">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+    <div className="min-h-screen bg-gray-900">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
         {/* Header */}
-        <div className="text-center mb-12">
-          <h1 className="text-4xl font-bold text-white mb-4">Simple, Transparent Pricing</h1>
-          <p className="text-xl text-dark-300 max-w-3xl mx-auto">
-            Choose the perfect plan for your content creation needs. Start free and upgrade as you grow.
+        <div className="text-center mb-16">
+          <h1 className="text-4xl font-bold text-white mb-4">Choose Your Plan</h1>
+          <p className="text-gray-300 text-lg max-w-2xl mx-auto">
+            Start creating amazing faceless videos with our flexible pricing plans
           </p>
         </div>
 
         {/* Billing Toggle */}
-        <div className="flex justify-center mb-8">
-          <div className="bg-dark-800 rounded-lg p-1 flex">
+        <div className="flex justify-center mb-12">
+          <div className="bg-gray-800 rounded-lg p-1 flex">
             <button
               onClick={() => setBillingCycle('monthly')}
-              className={`px-6 py-2 rounded-md text-sm font-medium transition-colors ${
+              className={`px-6 py-2 rounded-md font-medium transition-colors duration-200 ${
                 billingCycle === 'monthly'
-                  ? 'bg-primary-500 text-dark-900'
-                  : 'text-dark-300 hover:text-white'
+                  ? 'bg-yellow-500 text-gray-900'
+                  : 'text-gray-300 hover:text-white'
               }`}
             >
               Monthly
             </button>
             <button
               onClick={() => setBillingCycle('yearly')}
-              className={`px-6 py-2 rounded-md text-sm font-medium transition-colors ${
+              className={`px-6 py-2 rounded-md font-medium transition-colors duration-200 ${
                 billingCycle === 'yearly'
-                  ? 'bg-primary-500 text-dark-900'
-                  : 'text-dark-300 hover:text-white'
+                  ? 'bg-yellow-500 text-gray-900'
+                  : 'text-gray-300 hover:text-white'
               }`}
             >
               Yearly
-              <span className="ml-1 px-2 py-1 bg-green-500 text-white text-xs rounded-full">
+              <span className="ml-2 px-2 py-1 bg-green-500 text-white text-xs rounded-full">
                 Save 20%
               </span>
             </button>
@@ -147,82 +147,51 @@ const Pricing = () => {
         </div>
 
         {/* Pricing Cards */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-16">
+        <div className="grid md:grid-cols-3 gap-8 max-w-5xl mx-auto">
           {plans.map((plan) => (
             <div
               key={plan.id}
               className={`card relative ${
-                plan.popular
-                  ? 'ring-2 ring-primary-500 scale-105'
-                  : ''
+                plan.popular ? 'ring-2 ring-yellow-500' : ''
               }`}
             >
               {plan.popular && (
                 <div className="absolute -top-4 left-1/2 transform -translate-x-1/2">
-                  <span className="bg-primary-500 text-dark-900 px-4 py-1 rounded-full text-sm font-medium">
+                  <span className="bg-yellow-500 text-gray-900 px-4 py-1 rounded-full text-sm font-semibold">
                     Most Popular
                   </span>
                 </div>
               )}
 
-              <div className="text-center mb-6">
-                <div className="w-12 h-12 bg-primary-500/10 rounded-lg flex items-center justify-center mx-auto mb-4">
-                  <plan.icon className="w-6 h-6 text-primary-500" />
-                </div>
-                <h3 className="text-xl font-bold text-white mb-2">{plan.name}</h3>
-                <p className="text-dark-300 mb-4">{plan.description}</p>
-                
+              <div className="text-center mb-8">
+                <h3 className="text-2xl font-bold text-white mb-2">{plan.name}</h3>
                 <div className="mb-4">
-                  <span className="text-3xl font-bold text-white">₹{plan.price}</span>
-                  {billingCycle === 'monthly' ? (
-                    <span className="text-dark-300">/month</span>
-                  ) : (
-                    <span className="text-dark-300">/year</span>
-                  )}
-                  {plan.originalPrice > plan.price && (
-                    <div className="text-sm text-dark-400 line-through">
-                      ₹{plan.originalPrice}
-                    </div>
-                  )}
+                  <span className="text-4xl font-bold text-white">
+                    ${billingCycle === 'yearly' ? plan.originalPrice : plan.price}
+                  </span>
+                  <span className="text-gray-400">/{billingCycle === 'yearly' ? 'year' : 'month'}</span>
                 </div>
+                <p className="text-gray-300">{plan.description}</p>
               </div>
 
               <div className="space-y-4 mb-8">
-                <h4 className="font-semibold text-white">What's included:</h4>
-                <ul className="space-y-3">
-                  {plan.features.map((feature, index) => (
-                    <li key={index} className="flex items-start">
-                      <Check className="w-5 h-5 text-green-500 mr-3 mt-0.5 flex-shrink-0" />
-                      <span className="text-dark-300">{feature}</span>
-                    </li>
-                  ))}
-                </ul>
-                
-                {plan.limitations.length > 0 && (
-                  <div className="pt-4 border-t border-dark-700">
-                    <h4 className="font-semibold text-white mb-3">Limitations:</h4>
-                    <ul className="space-y-2">
-                      {plan.limitations.map((limitation, index) => (
-                        <li key={index} className="flex items-start">
-                          <span className="w-2 h-2 bg-red-500 rounded-full mr-3 mt-2 flex-shrink-0"></span>
-                          <span className="text-dark-400 text-sm">{limitation}</span>
-                        </li>
-                      ))}
-                    </ul>
+                {plan.features.map((feature, index) => (
+                  <div key={index} className="flex items-center">
+                    <Check className="w-5 h-5 text-yellow-500 mr-3 flex-shrink-0" />
+                    <span className="text-gray-300">{feature}</span>
                   </div>
-                )}
+                ))}
               </div>
 
-              <Link
-                to={plan.id === 'FREE' ? '/register' : '/register'}
-                className={`w-full text-center py-3 px-6 rounded-lg font-semibold transition-colors ${
+              <button
+                className={`w-full py-3 px-6 rounded-lg font-semibold transition-colors duration-200 ${
                   plan.popular
-                    ? 'bg-primary-500 text-dark-900 hover:bg-primary-600'
-                    : 'bg-dark-700 text-white hover:bg-dark-600'
+                    ? 'bg-yellow-500 text-white hover:bg-yellow-600'
+                    : 'bg-gray-700 text-white hover:bg-gray-600'
                 }`}
               >
                 {plan.id === 'FREE' ? 'Start Free' : 'Get Started'}
-              </Link>
+              </button>
             </div>
           ))}
         </div>
@@ -233,55 +202,55 @@ const Pricing = () => {
           <div className="overflow-x-auto">
             <table className="w-full">
               <thead>
-                <tr className="border-b border-dark-700">
-                  <th className="text-left py-4 px-4 text-dark-300 font-medium">Feature</th>
-                  <th className="text-center py-4 px-4 text-dark-300 font-medium">Free</th>
-                  <th className="text-center py-4 px-4 text-dark-300 font-medium">Starter</th>
-                  <th className="text-center py-4 px-4 text-dark-300 font-medium">Pro</th>
+                <tr className="border-b border-gray-700">
+                  <th className="text-left py-4 px-4 text-gray-300 font-medium">Feature</th>
+                  <th className="text-center py-4 px-4 text-gray-300 font-medium">Free</th>
+                  <th className="text-center py-4 px-4 text-gray-300 font-medium">Starter</th>
+                  <th className="text-center py-4 px-4 text-gray-300 font-medium">Pro</th>
                 </tr>
               </thead>
               <tbody>
-                <tr className="border-b border-dark-700/50">
+                <tr className="border-b border-gray-700/50">
                   <td className="py-4 px-4 text-white">Videos per month</td>
-                  <td className="py-4 px-4 text-center text-dark-300">3</td>
-                  <td className="py-4 px-4 text-center text-dark-300">30</td>
-                  <td className="py-4 px-4 text-center text-dark-300">Unlimited</td>
+                  <td className="py-4 px-4 text-center text-gray-300">3</td>
+                  <td className="py-4 px-4 text-center text-gray-300">30</td>
+                  <td className="py-4 px-4 text-center text-gray-300">Unlimited</td>
                 </tr>
-                <tr className="border-b border-dark-700/50">
+                <tr className="border-b border-gray-700/50">
                   <td className="py-4 px-4 text-white">AI Voices</td>
-                  <td className="py-4 px-4 text-center text-dark-300">2</td>
-                  <td className="py-4 px-4 text-center text-dark-300">5</td>
-                  <td className="py-4 px-4 text-center text-dark-300">10</td>
+                  <td className="py-4 px-4 text-center text-gray-300">2</td>
+                  <td className="py-4 px-4 text-center text-gray-300">5</td>
+                  <td className="py-4 px-4 text-center text-gray-300">10</td>
                 </tr>
-                <tr className="border-b border-dark-700/50">
+                <tr className="border-b border-gray-700/50">
                   <td className="py-4 px-4 text-white">Video Quality</td>
-                  <td className="py-4 px-4 text-center text-dark-300">720p</td>
-                  <td className="py-4 px-4 text-center text-dark-300">1080p</td>
-                  <td className="py-4 px-4 text-center text-dark-300">4K</td>
+                  <td className="py-4 px-4 text-center text-gray-300">720p</td>
+                  <td className="py-4 px-4 text-center text-gray-300">1080p</td>
+                  <td className="py-4 px-4 text-center text-gray-300">4K</td>
                 </tr>
-                <tr className="border-b border-dark-700/50">
+                <tr className="border-b border-gray-700/50">
                   <td className="py-4 px-4 text-white">Watermark</td>
-                  <td className="py-4 px-4 text-center text-dark-300">Yes</td>
-                  <td className="py-4 px-4 text-center text-dark-300">No</td>
-                  <td className="py-4 px-4 text-center text-dark-300">No</td>
+                  <td className="py-4 px-4 text-center text-gray-300">Yes</td>
+                  <td className="py-4 px-4 text-center text-gray-300">No</td>
+                  <td className="py-4 px-4 text-center text-gray-300">No</td>
                 </tr>
-                <tr className="border-b border-dark-700/50">
+                <tr className="border-b border-gray-700/50">
                   <td className="py-4 px-4 text-white">Batch Generation</td>
-                  <td className="py-4 px-4 text-center text-dark-300">No</td>
-                  <td className="py-4 px-4 text-center text-dark-300">No</td>
-                  <td className="py-4 px-4 text-center text-dark-300">Yes</td>
+                  <td className="py-4 px-4 text-center text-gray-300">No</td>
+                  <td className="py-4 px-4 text-center text-gray-300">No</td>
+                  <td className="py-4 px-4 text-center text-gray-300">Yes</td>
                 </tr>
-                <tr className="border-b border-dark-700/50">
+                <tr className="border-b border-gray-700/50">
                   <td className="py-4 px-4 text-white">YouTube Auto-upload</td>
-                  <td className="py-4 px-4 text-center text-dark-300">No</td>
-                  <td className="py-4 px-4 text-center text-dark-300">No</td>
-                  <td className="py-4 px-4 text-center text-dark-300">Yes</td>
+                  <td className="py-4 px-4 text-center text-gray-300">No</td>
+                  <td className="py-4 px-4 text-center text-gray-300">No</td>
+                  <td className="py-4 px-4 text-center text-gray-300">Yes</td>
                 </tr>
                 <tr>
                   <td className="py-4 px-4 text-white">Support</td>
-                  <td className="py-4 px-4 text-center text-dark-300">Email</td>
-                  <td className="py-4 px-4 text-center text-dark-300">Priority</td>
-                  <td className="py-4 px-4 text-center text-dark-300">Priority + Phone</td>
+                  <td className="py-4 px-4 text-center text-gray-300">Email</td>
+                  <td className="py-4 px-4 text-center text-gray-300">Priority</td>
+                  <td className="py-4 px-4 text-center text-gray-300">Priority + Phone</td>
                 </tr>
               </tbody>
             </table>
@@ -289,13 +258,29 @@ const Pricing = () => {
         </div>
 
         {/* FAQ Section */}
-        <div className="card">
-          <h2 className="text-2xl font-bold text-white mb-8 text-center">Frequently Asked Questions</h2>
-          <div className="grid md:grid-cols-2 gap-8">
+        <div className="mt-20">
+          <div className="text-center mb-12">
+            <h2 className="text-3xl font-bold text-white mb-4">Frequently Asked Questions</h2>
+            <p className="text-gray-300">Everything you need to know about our pricing</p>
+          </div>
+
+          <div className="max-w-3xl mx-auto space-y-6">
             {faqs.map((faq, index) => (
-              <div key={index}>
-                <h3 className="text-lg font-semibold text-white mb-2">{faq.question}</h3>
-                <p className="text-dark-300">{faq.answer}</p>
+              <div key={index} className="card">
+                <button
+                  onClick={() => toggleFaq(index)}
+                  className="w-full flex items-center justify-between text-left"
+                >
+                  <h3 className="text-lg font-semibold text-white">{faq.question}</h3>
+                  <ChevronDown
+                    className={`w-5 h-5 text-gray-400 transition-transform duration-200 ${
+                      openFaqs.includes(index) ? 'rotate-180' : ''
+                    }`}
+                  />
+                </button>
+                {openFaqs.includes(index) && (
+                  <p className="text-gray-300 mt-4">{faq.answer}</p>
+                )}
               </div>
             ))}
           </div>
@@ -304,7 +289,7 @@ const Pricing = () => {
         {/* CTA Section */}
         <div className="text-center mt-16">
           <h2 className="text-3xl font-bold text-white mb-4">Ready to Start Creating?</h2>
-          <p className="text-xl text-dark-300 mb-8">
+          <p className="text-gray-300 mb-8">
             Join thousands of creators who trust InvisiReel for their video content
           </p>
           <Link to="/register" className="btn-primary text-lg px-8 py-4">
