@@ -11,6 +11,13 @@ const Templates = () => {
     setImageErrors(prev => ({ ...prev, [templateId]: true }))
   }
 
+  const handlePlayClick = (templateId) => {
+    // For now, just log the template ID. In a real app, this would open a video preview
+    console.log('Playing template:', templateId)
+    // You could also navigate to a preview page or open a modal
+    // navigate(`/preview/${templateId}`)
+  }
+
   const categories = [
     { id: 'all', name: 'All Templates' },
     { id: 'motivation', name: 'Motivation' },
@@ -201,7 +208,7 @@ const Templates = () => {
         {/* Templates Grid */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
           {filteredTemplates.map((template) => (
-            <div key={template.id} className="card hover:scale-105 transition-transform duration-200">
+            <div key={template.id} className="card hover:scale-105 transition-transform duration-200 flex flex-col">
               {/* Thumbnail */}
               <div className="relative mb-4">
                 {imageErrors[template.id] ? (
@@ -220,13 +227,16 @@ const Templates = () => {
                     loading="lazy"
                   />
                 )}
-                <button className="absolute inset-0 flex items-center justify-center bg-black/50 opacity-0 hover:opacity-100 transition-opacity rounded-lg">
+                <button 
+                  className="absolute inset-0 flex items-center justify-center bg-black/50 opacity-0 hover:opacity-100 transition-opacity rounded-lg"
+                  onClick={() => handlePlayClick(template.id)}
+                >
                   <Play className="w-12 h-12 text-white" />
                 </button>
               </div>
 
               {/* Content */}
-              <div className="space-y-3">
+              <div className="flex flex-col flex-1 space-y-4">
                 <div>
                   <h3 className="text-lg font-semibold text-white mb-1">{template.name}</h3>
                   <p className="text-gray-300 text-sm">{template.description}</p>
@@ -249,7 +259,7 @@ const Templates = () => {
                 </div>
 
                 {/* Tags */}
-                <div className="flex flex-wrap gap-1">
+                <div className="flex flex-wrap gap-1 mb-2">
                   {template.tags.slice(0, 2).map((tag) => (
                     <span
                       key={tag}
@@ -263,7 +273,7 @@ const Templates = () => {
                 {/* Use Template Button */}
                 <Link
                   to={`/create?template=${template.id}`}
-                  className="btn-primary w-full text-center"
+                  className="btn-primary w-full text-center mt-auto"
                 >
                   Use Template
                 </Link>
