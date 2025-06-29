@@ -34,7 +34,7 @@ function App() {
 
   if (loading) {
     return (
-      <div className="min-h-screen bg-dark-900 flex items-center justify-center">
+      <div className="min-h-screen bg-gray-900 flex items-center justify-center">
         <LoadingSpinner />
       </div>
     )
@@ -42,7 +42,7 @@ function App() {
 
   return (
     <Router>
-      <div className="min-h-screen bg-dark-900">
+      <div className="min-h-screen bg-gray-900">
         <Navbar user={user} />
         <main>
           <Routes>
