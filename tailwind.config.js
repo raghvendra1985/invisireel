@@ -4,20 +4,6 @@ export default {
     "./index.html",
     "./src/**/*.{js,ts,jsx,tsx}",
   ],
-  safelist: [
-    "bg-dark-900",
-    "bg-dark-800",
-    "bg-dark-700",
-    "bg-dark-600",
-    "bg-dark-500",
-    "border-dark-700",
-    "border-dark-600",
-    "border-dark-500",
-    "text-dark-900",
-    "placeholder-dark-400",
-    "focus:ring-offset-dark-900",
-    // Add any other custom classes you use
-  ],
   theme: {
     extend: {
       colors: {

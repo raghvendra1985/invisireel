@@ -54,12 +54,12 @@ const Register = () => {
         <div className="text-center mb-8">
           <Link to="/" className="inline-flex items-center space-x-2 mb-6">
             <div className="w-8 h-8 bg-gradient-to-r from-primary-400 to-primary-600 rounded-lg flex items-center justify-center">
-              <span className="text-dark-900 font-bold text-lg">R</span>
+              <span className="text-gray-900 font-bold text-lg">R</span>
             </div>
             <span className="text-xl font-bold gradient-text">InvisiReel</span>
           </Link>
           <h1 className="text-3xl font-bold text-white mb-2">Create your account</h1>
-          <p className="text-dark-300">Start creating amazing faceless videos today</p>
+          <p className="text-gray-300">Start creating amazing faceless videos today</p>
         </div>
 
         <div className="card">
@@ -75,7 +75,7 @@ const Register = () => {
                 Full name
               </label>
               <div className="relative">
-                <User className="absolute left-3 top-1/2 transform -translate-y-1/2 w-5 h-5 text-dark-400" />
+                <User className="absolute left-3 top-1/2 transform -translate-y-1/2 w-5 h-5 text-gray-400" />
                 <input
                   id="name"
                   type="text"
@@ -93,7 +93,7 @@ const Register = () => {
                 Email address
               </label>
               <div className="relative">
-                <Mail className="absolute left-3 top-1/2 transform -translate-y-1/2 w-5 h-5 text-dark-400" />
+                <Mail className="absolute left-3 top-1/2 transform -translate-y-1/2 w-5 h-5 text-gray-400" />
                 <input
                   id="email"
                   type="email"
@@ -111,7 +111,7 @@ const Register = () => {
                 Password
               </label>
               <div className="relative">
-                <Lock className="absolute left-3 top-1/2 transform -translate-y-1/2 w-5 h-5 text-dark-400" />
+                <Lock className="absolute left-3 top-1/2 transform -translate-y-1/2 w-5 h-5 text-gray-400" />
                 <input
                   id="password"
                   type={showPassword ? 'text' : 'password'}
@@ -125,7 +125,7 @@ const Register = () => {
                 <button
                   type="button"
                   onClick={() => setShowPassword(!showPassword)}
-                  className="absolute right-3 top-1/2 transform -translate-y-1/2 text-dark-400 hover:text-white"
+                  className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-400 hover:text-white"
                 >
                   {showPassword ? <EyeOff className="w-5 h-5" /> : <Eye className="w-5 h-5" />}
                 </button>
@@ -137,7 +137,7 @@ const Register = () => {
                 Confirm password
               </label>
               <div className="relative">
-                <Lock className="absolute left-3 top-1/2 transform -translate-y-1/2 w-5 h-5 text-dark-400" />
+                <Lock className="absolute left-3 top-1/2 transform -translate-y-1/2 w-5 h-5 text-gray-400" />
                 <input
                   id="confirmPassword"
                   type={showConfirmPassword ? 'text' : 'password'}
@@ -150,7 +150,7 @@ const Register = () => {
                 <button
                   type="button"
                   onClick={() => setShowConfirmPassword(!showConfirmPassword)}
-                  className="absolute right-3 top-1/2 transform -translate-y-1/2 text-dark-400 hover:text-white"
+                  className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-400 hover:text-white"
                 >
                   {showConfirmPassword ? <EyeOff className="w-5 h-5" /> : <Eye className="w-5 h-5" />}
                 </button>
@@ -174,7 +174,7 @@ const Register = () => {
           </form>
 
           <div className="mt-6 text-center">
-            <p className="text-dark-300">
+            <p className="text-gray-300">
               Already have an account?{' '}
               <Link to="/login" className="text-primary-500 hover:text-primary-400 font-medium">
                 Sign in

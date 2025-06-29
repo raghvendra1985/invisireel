@@ -38,12 +38,12 @@ const Login = () => {
         <div className="text-center mb-8">
           <Link to="/" className="inline-flex items-center space-x-2 mb-6">
             <div className="w-8 h-8 bg-gradient-to-r from-primary-400 to-primary-600 rounded-lg flex items-center justify-center">
-              <span className="text-dark-900 font-bold text-lg">R</span>
+              <span className="text-gray-900 font-bold text-lg">R</span>
             </div>
             <span className="text-xl font-bold gradient-text">InvisiReel</span>
           </Link>
           <h1 className="text-3xl font-bold text-white mb-2">Welcome back</h1>
-          <p className="text-dark-300">Sign in to your account to continue creating</p>
+          <p className="text-gray-300">Sign in to your account to continue creating</p>
         </div>
 
         <div className="card">
@@ -59,7 +59,7 @@ const Login = () => {
                 Email address
               </label>
               <div className="relative">
-                <Mail className="absolute left-3 top-1/2 transform -translate-y-1/2 w-5 h-5 text-dark-400" />
+                <Mail className="absolute left-3 top-1/2 transform -translate-y-1/2 w-5 h-5 text-gray-400" />
                 <input
                   id="email"
                   type="email"
@@ -77,7 +77,7 @@ const Login = () => {
                 Password
               </label>
               <div className="relative">
-                <Lock className="absolute left-3 top-1/2 transform -translate-y-1/2 w-5 h-5 text-dark-400" />
+                <Lock className="absolute left-3 top-1/2 transform -translate-y-1/2 w-5 h-5 text-gray-400" />
                 <input
                   id="password"
                   type={showPassword ? 'text' : 'password'}
@@ -90,7 +90,7 @@ const Login = () => {
                 <button
                   type="button"
                   onClick={() => setShowPassword(!showPassword)}
-                  className="absolute right-3 top-1/2 transform -translate-y-1/2 text-dark-400 hover:text-white"
+                  className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-400 hover:text-white"
                 >
                   {showPassword ? <EyeOff className="w-5 h-5" /> : <Eye className="w-5 h-5" />}
                 </button>
@@ -114,7 +114,7 @@ const Login = () => {
           </form>
 
           <div className="mt-6 text-center">
-            <p className="text-dark-300">
+            <p className="text-gray-300">
               Don't have an account?{' '}
               <Link to="/register" className="text-primary-500 hover:text-primary-400 font-medium">
                 Sign up for free
