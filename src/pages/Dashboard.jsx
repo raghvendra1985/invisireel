@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react'
 import { Link } from 'react-router-dom'
-import { Plus, Play, Download, Trash2, Eye, Calendar, Video, Users, TrendingUp } from 'lucide-react'
+import { Plus, Play, Download, Trash2, Eye, Calendar, Video, Users, TrendingUp, Settings, BarChart3, User, FileText } from 'lucide-react'
 import { supabase, TABLES, VIDEO_STATUS } from '../lib/supabase'
 import LoadingSpinner from '../components/LoadingSpinner'
 
@@ -165,6 +165,45 @@ const Dashboard = ({ user }) => {
           </div>
         </div>
 
+        {/* Quick Actions */}
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
+          <Link to="/analytics" className="card hover:bg-gray-700/50 transition-colors cursor-pointer">
+            <div className="flex items-center">
+              <div className="w-12 h-12 bg-blue-500/10 rounded-lg flex items-center justify-center mr-4">
+                <BarChart3 className="w-6 h-6 text-blue-500" />
+              </div>
+              <div>
+                <h3 className="text-lg font-semibold text-white">Analytics</h3>
+                <p className="text-gray-300 text-sm">View performance insights</p>
+              </div>
+            </div>
+          </Link>
+
+          <Link to="/profile" className="card hover:bg-gray-700/50 transition-colors cursor-pointer">
+            <div className="flex items-center">
+              <div className="w-12 h-12 bg-purple-500/10 rounded-lg flex items-center justify-center mr-4">
+                <User className="w-6 h-6 text-purple-500" />
+              </div>
+              <div>
+                <h3 className="text-lg font-semibold text-white">Profile</h3>
+                <p className="text-gray-300 text-sm">Manage your account</p>
+              </div>
+            </div>
+          </Link>
+
+          <Link to="/templates" className="card hover:bg-gray-700/50 transition-colors cursor-pointer">
+            <div className="flex items-center">
+              <div className="w-12 h-12 bg-green-500/10 rounded-lg flex items-center justify-center mr-4">
+                <FileText className="w-6 h-6 text-green-500" />
+              </div>
+              <div>
+                <h3 className="text-lg font-semibold text-white">Templates</h3>
+                <p className="text-gray-300 text-sm">Browse video templates</p>
+              </div>
+            </div>
+          </Link>
+        </div>
+
         {/* Videos Section */}
         <div className="card">
           <div className="flex justify-between items-center mb-6">
@@ -222,6 +261,12 @@ const Dashboard = ({ user }) => {
                               <button className="text-primary-500 hover:text-primary-400">
                                 <Play className="w-4 h-4" />
                               </button>
+                              <Link 
+                                to={`/video-editor/${video.id}`}
+                                className="text-blue-500 hover:text-blue-400"
+                              >
+                                <Settings className="w-4 h-4" />
+                              </Link>
                               <button className="text-green-500 hover:text-green-400">
                                 <Download className="w-4 h-4" />
                               </button>

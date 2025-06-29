@@ -5,6 +5,9 @@ import Navbar from './components/Navbar'
 import Home from './pages/Home'
 import Dashboard from './pages/Dashboard'
 import CreateVideo from './pages/CreateVideo'
+import VideoEditor from './pages/VideoEditor'
+import Analytics from './pages/Analytics'
+import Profile from './pages/Profile'
 import Templates from './pages/Templates'
 import Pricing from './pages/Pricing'
 import Login from './pages/Login'
@@ -63,6 +66,9 @@ function App() {
             <Route path="/" element={<Home />} />
             <Route path="/dashboard" element={<Dashboard user={user} />} />
             <Route path="/create" element={<CreateVideo user={user} />} />
+            <Route path="/video-editor/:videoId" element={<VideoEditor user={user} />} />
+            <Route path="/analytics" element={<Analytics user={user} />} />
+            <Route path="/profile" element={<Profile user={user} />} />
             <Route path="/templates" element={<Templates />} />
             <Route path="/pricing" element={<Pricing />} />
             <Route path="/login" element={<Login />} />

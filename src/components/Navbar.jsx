@@ -1,10 +1,11 @@
 import { useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
-import { Menu, X, User, LogOut, Video, Home, DollarSign, FileText } from 'lucide-react'
+import { Menu, X, User, LogOut, Video, Home, DollarSign, FileText, BarChart3, Settings, ChevronDown } from 'lucide-react'
 import { supabase } from '../lib/supabase'
 
 const Navbar = ({ user }) => {
   const [isMenuOpen, setIsMenuOpen] = useState(false)
+  const [isUserMenuOpen, setIsUserMenuOpen] = useState(false)
   const navigate = useNavigate()
 
   const handleLogout = async () => {
@@ -21,6 +22,12 @@ const Navbar = ({ user }) => {
   const userNavItems = [
     { name: 'Dashboard', href: '/dashboard', icon: Video },
     { name: 'Create Video', href: '/create', icon: Video },
+    { name: 'Analytics', href: '/analytics', icon: BarChart3 },
+  ]
+
+  const userMenuItems = [
+    { name: 'Profile Settings', href: '/profile', icon: Settings },
+    { name: 'Logout', action: handleLogout, icon: LogOut },
   ]
 
   return (
@@ -61,16 +68,48 @@ const Navbar = ({ user }) => {
                     {item.name}
                   </Link>
                 ))}
-                <div className="flex items-center space-x-2">
+                <div className="flex items-center space-x-2 relative">
                   <div className="w-8 h-8 bg-yellow-500 rounded-full flex items-center justify-center">
                     <User className="w-4 h-4 text-gray-900" />
                   </div>
                   <button
-                    onClick={handleLogout}
-                    className="text-gray-300 hover:text-white transition-colors duration-200"
+                    onClick={() => setIsUserMenuOpen(!isUserMenuOpen)}
+                    className="text-gray-300 hover:text-white transition-colors duration-200 flex items-center"
                   >
-                    <LogOut className="w-4 h-4" />
+                    <span className="mr-1">{user?.user_metadata?.name || 'User'}</span>
+                    <ChevronDown className="w-4 h-4" />
                   </button>
+                  
+                  {/* User Dropdown Menu */}
+                  {isUserMenuOpen && (
+                    <div className="absolute top-full right-0 mt-2 w-48 bg-gray-800 rounded-lg shadow-lg border border-gray-700 py-2 z-50">
+                      {userMenuItems.map((item) => (
+                        <div key={item.name}>
+                          {item.href ? (
+                            <Link
+                              to={item.href}
+                              className="flex items-center px-4 py-2 text-gray-300 hover:text-white hover:bg-gray-700 transition-colors duration-200"
+                              onClick={() => setIsUserMenuOpen(false)}
+                            >
+                              <item.icon className="w-4 h-4 mr-3" />
+                              {item.name}
+                            </Link>
+                          ) : (
+                            <button
+                              onClick={() => {
+                                item.action()
+                                setIsUserMenuOpen(false)
+                              }}
+                              className="flex items-center w-full px-4 py-2 text-gray-300 hover:text-white hover:bg-gray-700 transition-colors duration-200"
+                            >
+                              <item.icon className="w-4 h-4 mr-3" />
+                              {item.name}
+                            </button>
+                          )}
+                        </div>
+                      ))}
+                    </div>
+                  )}
                 </div>
               </>
             ) : (
