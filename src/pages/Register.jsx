@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
-import { Mail, Lock, Eye, EyeOff, Loader2, User } from 'lucide-react'
+import { Mail, Lock, Eye, EyeOff, Loader2, User, AlertCircle } from 'lucide-react'
 import { supabase } from '../lib/supabase'
 
 const Register = () => {
@@ -25,6 +25,17 @@ const Register = () => {
       return
     }
 
+    // Check if Supabase is properly configured
+    const supabaseUrl = import.meta.env.VITE_SUPABASE_URL
+    const supabaseKey = import.meta.env.VITE_SUPABASE_ANON_KEY
+    
+    if (!supabaseUrl || supabaseUrl === 'https://your-project.supabase.co' || 
+        !supabaseKey || supabaseKey === 'your-anon-key') {
+      setError('Supabase is not configured. Please check your environment variables.')
+      setLoading(false)
+      return
+    }
+
     try {
       const { data, error } = await supabase.auth.signUp({
         email,
@@ -42,7 +53,14 @@ const Register = () => {
       alert('Registration successful! Please check your email to verify your account.')
       navigate('/login')
     } catch (error) {
-      setError(error.message)
+      console.error('Registration error:', error)
+      if (error.message.includes('fetch')) {
+        setError('Network error. Please check your internet connection and try again.')
+      } else if (error.message.includes('Invalid API key')) {
+        setError('Invalid Supabase configuration. Please check your environment variables.')
+      } else {
+        setError(error.message || 'Registration failed. Please try again.')
+      }
     } finally {
       setLoading(false)
     }
@@ -66,7 +84,24 @@ const Register = () => {
           <form onSubmit={handleRegister} className="space-y-6">
             {error && (
               <div className="bg-red-500/10 border border-red-500/20 rounded-lg p-4">
-                <p className="text-red-400 text-sm">{error}</p>
+                <div className="flex items-start space-x-3">
+                  <AlertCircle className="w-5 h-5 text-red-400 mt-0.5 flex-shrink-0" />
+                  <div>
+                    <p className="text-red-400 text-sm font-medium">Registration Error</p>
+                    <p className="text-red-400 text-sm mt-1">{error}</p>
+                    {error.includes('Supabase is not configured') && (
+                      <div className="mt-2 text-xs text-red-300">
+                        <p>To fix this:</p>
+                        <ol className="list-decimal list-inside mt-1 space-y-1">
+                          <li>Create a Supabase project at <a href="https://supabase.com" target="_blank" rel="noopener noreferrer" className="underline">supabase.com</a></li>
+                          <li>Go to Settings → API</li>
+                          <li>Copy the Project URL and anon key</li>
+                          <li>Update the .env file in your project</li>
+                        </ol>
+                      </div>
+                    )}
+                  </div>
+                </div>
               </div>
             )}
 
