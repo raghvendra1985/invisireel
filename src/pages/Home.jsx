@@ -1,7 +1,18 @@
 import { Link } from 'react-router-dom'
-import { Play, Zap, Users, Star, CheckCircle, ArrowRight, Video, Mic, Music, Download } from 'lucide-react'
+import { Play, Zap, Users, Star, CheckCircle, ArrowRight, Video, Mic, Music, Download, X } from 'lucide-react'
+import { useState } from 'react'
 
 const Home = () => {
+  const [showDemo, setShowDemo] = useState(false)
+
+  const handleWatchDemo = () => {
+    setShowDemo(true)
+  }
+
+  const closeDemo = () => {
+    setShowDemo(false)
+  }
+
   const features = [
     {
       icon: Video,
@@ -85,7 +96,10 @@ const Home = () => {
                 Start for Free
                 <ArrowRight className="w-5 h-5 ml-2" />
               </Link>
-              <button className="btn-secondary text-lg px-8 py-4 flex items-center justify-center">
+              <button 
+                className="btn-secondary text-lg px-8 py-4 flex items-center justify-center"
+                onClick={handleWatchDemo}
+              >
                 <Play className="w-5 h-5 mr-2" />
                 Watch Demo
               </button>
@@ -107,11 +121,26 @@ const Home = () => {
           </div>
           
           <div className="relative max-w-4xl mx-auto">
-            <div className="aspect-video bg-gray-700 rounded-2xl flex items-center justify-center border border-gray-600">
-              <div className="text-center">
-                <Play className="w-16 h-16 text-yellow-500 mx-auto mb-4" />
-                <p className="text-gray-300">Demo video will be embedded here</p>
+            <div className="relative aspect-video bg-gray-700 rounded-2xl overflow-hidden border border-gray-600 cursor-pointer group" onClick={handleWatchDemo}>
+              <video 
+                className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+                controls
+                poster="https://images.unsplash.com/photo-1611162617213-7d7a39e9b1d7?w=800&h=450&fit=crop&crop=center"
+              >
+                <source src="https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4" type="video/mp4" />
+                <source src="https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.webm" type="video/webm" />
+                Your browser does not support the video tag.
+              </video>
+              <div className="absolute inset-0 bg-black/20 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
+                <Play className="w-16 h-16 text-white" />
               </div>
+            </div>
+            <div className="mt-6 text-center">
+              <p className="text-gray-300 text-sm">
+                This is a sample video showcasing InvisiReel's AI-powered video generation capabilities.
+                <br />
+                Create similar engaging content in seconds with our platform!
+              </p>
             </div>
           </div>
         </div>
@@ -215,6 +244,38 @@ const Home = () => {
           </Link>
         </div>
       </section>
+
+      {/* Demo Video Modal */}
+      {showDemo && (
+        <div className="fixed inset-0 bg-black/80 flex items-center justify-center z-50 p-4">
+          <div className="relative max-w-4xl w-full">
+            <button
+              onClick={closeDemo}
+              className="absolute -top-12 right-0 text-white hover:text-gray-300 transition-colors"
+            >
+              <X className="w-8 h-8" />
+            </button>
+            <div className="aspect-video bg-gray-800 rounded-2xl overflow-hidden">
+              <video 
+                className="w-full h-full object-cover"
+                controls
+                autoPlay
+                poster="https://images.unsplash.com/photo-1611162617213-7d7a39e9b1d7?w=800&h=450&fit=crop&crop=center"
+              >
+                <source src="https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4" type="video/mp4" />
+                <source src="https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.webm" type="video/webm" />
+                Your browser does not support the video tag.
+              </video>
+            </div>
+            <div className="mt-4 text-center">
+              <h3 className="text-white text-lg font-semibold mb-2">InvisiReel Demo</h3>
+              <p className="text-gray-300 text-sm">
+                See how easy it is to create engaging faceless videos with AI
+              </p>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   )
 }
