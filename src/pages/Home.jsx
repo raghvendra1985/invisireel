@@ -67,7 +67,7 @@ const Home = () => {
   return (
     <div className="min-h-screen">
       {/* Hero Section */}
-      <section className="relative overflow-hidden bg-gradient-to-br from-gray-900 via-gray-800 to-gray-900">
+      <section className="relative overflow-hidden bg-gradient-to-br from-dark-900 via-dark-800 to-dark-900">
         <div className="absolute inset-0 bg-[url('data:image/svg+xml,%3Csvg width=&quot;60&quot; height=&quot;60&quot; viewBox=&quot;0 0 60 60&quot; xmlns=&quot;http://www.w3.org/2000/svg&quot;%3E%3Cg fill=&quot;none&quot; fill-rule=&quot;evenodd&quot;%3E%3Cg fill=&quot;%23ffffff&quot; fill-opacity=&quot;0.02&quot;%3E%3Ccircle cx=&quot;30&quot; cy=&quot;30&quot; r=&quot;2&quot;/%3E%3C/g%3E%3C/g%3E%3C/svg%3E')] opacity-50"></div>
         
         <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-20 pb-16">
@@ -95,7 +95,7 @@ const Home = () => {
       </section>
 
       {/* Demo Section */}
-      <section className="py-20 bg-gray-800">
+      <section className="py-20 bg-dark-800">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-16">
             <h2 className="text-3xl md:text-4xl font-bold text-white mb-4">
@@ -107,7 +107,7 @@ const Home = () => {
           </div>
           
           <div className="relative max-w-4xl mx-auto">
-            <div className="aspect-video bg-gray-700 rounded-2xl flex items-center justify-center border border-gray-600">
+            <div className="aspect-video bg-dark-700 rounded-2xl flex items-center justify-center border border-dark-600">
               <div className="text-center">
                 <Play className="w-16 h-16 text-yellow-500 mx-auto mb-4" />
                 <p className="text-gray-300">Demo video will be embedded here</p>
@@ -118,7 +118,7 @@ const Home = () => {
       </section>
 
       {/* How It Works */}
-      <section className="py-20 bg-gray-900">
+      <section className="py-20 bg-dark-900">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-16">
             <h2 className="text-3xl md:text-4xl font-bold text-white mb-4">
@@ -144,7 +144,7 @@ const Home = () => {
       </section>
 
       {/* Features */}
-      <section className="py-20 bg-gray-800">
+      <section className="py-20 bg-dark-800">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-16">
             <h2 className="text-3xl md:text-4xl font-bold text-white mb-4">
@@ -170,7 +170,7 @@ const Home = () => {
       </section>
 
       {/* Testimonials */}
-      <section className="py-20 bg-gray-900">
+      <section className="py-20 bg-dark-900">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-16">
             <h2 className="text-3xl md:text-4xl font-bold text-white mb-4">
@@ -209,7 +209,7 @@ const Home = () => {
           <p className="text-gray-800 text-lg mb-8">
             Join thousands of creators who are already using InvisiReel to grow their audience
           </p>
-          <Link to="/register" className="bg-gray-900 text-white font-semibold py-4 px-8 rounded-lg hover:bg-gray-800 transition-colors duration-200 inline-flex items-center">
+          <Link to="/register" className="bg-dark-900 text-white font-semibold py-4 px-8 rounded-lg hover:bg-dark-800 transition-colors duration-200 inline-flex items-center">
             Start Creating Now
             <ArrowRight className="w-5 h-5 ml-2" />
           </Link>
